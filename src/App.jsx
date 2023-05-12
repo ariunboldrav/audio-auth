@@ -14,11 +14,11 @@ function App() {
     history.location = useLocation();
 
     return (
-        <div className="app-container bg-light">
+        <div className="app-container bg-white">
             <Nav />
             <div className="container pt-4 pb-4">
                 <Routes>
-                <Route
+                    <Route
                         path="/"
                         element={
                             <PrivateRoute>
