@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { history, fetchWrapper } from '_helpers';
+import { useDispatch } from 'react-redux';
+import { fetchWrapper } from '_helpers';
 import InputField from '_components/inputs/InputField';
 import { userActions } from '_store';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,6 @@ export { Campaign };
 function Campaign() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const { user: authUser } = useSelector(x => x.auth);
 
     const [name, setName] = useState("");
     const [brandName, setBrandName] = useState("");
@@ -25,8 +24,6 @@ function Campaign() {
     const [endDate, setEndDate] = useState('');
     const [errorMessage, setErrorMessage] = useState([])
 
-    // const [currentPass, setCurrentPass] = useState('');
-    const { from } = history.location.state || { from: { pathname: '/' } };
 
     useEffect(() => {
         dispatch(userActions.getAll());
@@ -55,15 +52,14 @@ function Campaign() {
         const user = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/campaign`, {
             name: name,
             brandName: brandName,
-            totalBudget: totalBudget == '' ? 0 : parseInt(totalBudget),
-            createBudget: createBudget == '' ? 0 : parseInt(createBudget),
+            totalBudget: totalBudget === '' ? 0 : parseInt(totalBudget),
+            createBudget: createBudget === '' ? 0 : parseInt(createBudget),
             startDate: startDate,
             endDate: endDate
         })
 
-        if(user.statusCode == 400) {
-            setErrorMessage(user.message)
-            console.log(user.message)
+        if (user.statusCode === 400) {
+            setErrorMessage(errorMessage)
         } else {
             navigate('/spec')
         }

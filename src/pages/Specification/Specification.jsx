@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { history, fetchWrapper } from '_helpers';
+import { useDispatch } from 'react-redux';
+import { fetchWrapper } from '_helpers';
 import InputField from '_components/inputs/InputField';
+import InputFieldMore from '_components/inputs/InputFieldMore';
 import { userActions } from '_store';
 import { useNavigate } from 'react-router-dom';
-import PasswordField from '_components/inputs/PasswordField';
 
 export { Specification };
 
 function Specification() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const { user: authUser } = useSelector(x => x.auth);
-    const [compName, setCompName] = useState('');
-    const [empName, setEmpName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
+
+    const [media, setMedia] = useState('');
+
+    const [seconds, setSeconds] = useState('');
+    const [secondsFreq, setSecondsFreq] = useState(0);
+
+    const [bannerSize, setBannerSize] = useState('');
+    const [bannerFreq, setBannerFreq] = useState(0);
+
+    const [logoSize, setLogoSize] = useState('');
+    const [logoFreq, setLogoFreq] = useState(0);
     // const [currentPass, setCurrentPass] = useState('');
-    const { from } = history.location.state || { from: { pathname: '/' } };
 
     useEffect(() => {
         dispatch(userActions.getAll());
@@ -26,27 +31,33 @@ function Specification() {
     }, []);
 
     async function handleCompany() {
-        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/users/profile`)
+        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/spec`)
         if (data) {
-            setCompName(data.companies[0].name)
-            setEmpName(data.full_name)
-            setEmail(data.email)
-            setPhone(data.phone)
+            setMedia(data.media)
+            setSeconds(data.seconds)
+            setSecondsFreq(data.seconds_freq)
+            setBannerSize(data.banner_size)
+            setBannerFreq(data.banner_freq)
+            setLogoSize(data.logo_size)
+            setLogoFreq(data.logo_freq)
         } else {
             navigate('/login')
         }
     }
 
     async function onSubmit() {
-        const user = await fetchWrapper.patch(`${process.env.REACT_APP_API_URL}/users`, {
-            email: email,
-            fullName: empName,
-            phone: phone,
-            compName: compName
+        const spec = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/spec`, {
+            media: media,
+            seconds: seconds,
+            secondsFreq: secondsFreq,
+            bannerSize: bannerSize,
+            bannerFreq: bannerFreq,
+            logoSize: logoSize,
+            logoFreq: logoFreq,
             // currentPass: currentPass
         })
-        if (user) {
-            navigate('/campaign')
+        if (spec) {
+            navigate('/content')
         }
     }
 
@@ -55,36 +66,60 @@ function Specification() {
             <h2 className="text-black mt-2">依頼主様情報</h2>
             <div className="my-6">
                 <form>
-                    <div className="grid gap-4 grid-cols-2">
+                    <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="会社名" value={compName} setValue={setCompName} />
-                        </div>
-                        <div className="mb-6">
-                            <InputField label="担当者様 氏名" value={empName} setValue={setEmpName} />
+                            <InputField label="配信先のメディアフォーマット" placeholder={`その他`} value={media} setValue={setMedia} />
                         </div>
                     </div>
-                    <div className="grid gap-4 grid-cols-2">
+                    <div className="mb-0 col-span-2">
+                        <div className="mb-6">
+                            <InputField label="広告の長さと個数" placeholder={`その他`} value={seconds} setValue={setSeconds} extInput1={
+                                <InputFieldMore
+                                    type="text"
+                                    value={secondsFreq}
+                                    setValue={setSecondsFreq}
+                                    info="30秒"
+                                    label="Spotifyでは30秒までの長さを配信できます"
+                                />
+                            } />
+                        </div>
+                    </div>
+                    <div className="mb-0 col-span-2">
+                        <div className="mb-6">
+                            <InputField label="コンパニオンバナーのサイズと個数" placeholder={`その他`} value={bannerSize} setValue={setBannerSize} extInput1={
+                                <InputFieldMore
+                                    type="text"
+                                    value={bannerFreq}
+                                    setValue={setBannerFreq}
+                                    info="600 x 600"
+                                    label="Spotifyでは最低このサイズでアスペクト比1:1のものが必要となります"
+                                />
+                            } />
+                        </div>
+                    </div>
+                    <div className="mb-0 col-span-2">
                         <div className=" mb-6">
-                            <InputField label="担当者様 メールアドレス" value={email} setValue={setEmail} />
+                            <InputField label="ロゴのサイズと個数" placeholder={`その他`} value={logoSize} setValue={setLogoSize}
+                                extInput1={
+                                    <InputFieldMore
+                                        type="text"
+                                        value={logoFreq}
+                                        setValue={setLogoFreq}
+                                        info="112 x 112"
+                                        label="Spotifyでは最低このサイズでアスペクト比1:1のものが必要となります"
+                                    />
+                                } />
                         </div>
-                        <div className=" mb-6">
-                            <InputField label="担当者様 電話番号" value={phone} setValue={setPhone} />
-                        </div>
-                        {/* <div className=" mb-6">
-                            <PasswordField label="担当者様 電話番号" value={currentPass} setValue={setCurrentPass} />
-                        </div>
-                        <div></div> */}
-                        <div></div>
-                        <div>
-                            <button
-                                onClick={() => onSubmit()}
-                                type='button'
-                                className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                            >
-                                Next
-                            </button>
-                            <div className="clear"></div>
-                        </div>
+                    </div>
+                    <div className="mb-0 col-span-2">
+                        <button
+                            onClick={() => onSubmit()}
+                            type='button'
+                            className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                        >
+                            Next
+                        </button>
+                        <div className="clear"></div>
                     </div>
                 </form>
             </div>

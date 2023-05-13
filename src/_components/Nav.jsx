@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { authActions } from '_store';
-import { userActions } from '_store';
 
 export { Nav };
 
@@ -16,10 +15,10 @@ function Nav() {
     if (!authUser) return null;
     
     return (
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <div className="navbar-nav">
-                <NavLink to="/company" className="nav-item nav-link">Hello! {users.full_name}</NavLink>
-                <button onClick={logout} className="btn btn-link nav-item nav-link">Logout</button>
+        <nav className="flex justify-end bg-white pt-2 pr-2">
+            <div className="flex justify-center">
+                <NavLink to="/company" className="nav-item nav-link primary">Hello! {users.full_name}</NavLink>
+                <NavLink onClick={logout} className="nav-item nav-link primary">Logout</NavLink>
             </div>
         </nav>
     );

@@ -6,6 +6,7 @@ import { Login, Campaign, Register } from 'pages';
 import { Company } from 'pages/Company/Company';
 import Layout from '_components/layouts/Layout';
 import { Specification } from 'pages/Specification/Specification';
+import { Content } from 'pages/Content/Content';
 
 export { App };
 
@@ -25,7 +26,7 @@ function App() {
                 <Route path="/" element={authPage(<Company />)} />
                 <Route path="/campaign" element={authPage(<Campaign />)} />
                 <Route path="/spec" element={authPage(<Specification />)} />
-                <Route path="/content" element={authPage(<Register />)} />
+                <Route path="/content" element={authPage(<Content />)} />
                 <Route path="/files" element={authPage(<Register />)} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/company" element={<Layout><Register /></Layout>} />
