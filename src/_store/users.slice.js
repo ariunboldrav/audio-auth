@@ -4,7 +4,7 @@ import { fetchWrapper } from '_helpers';
 
 // create slice
 
-const name = 'users';
+const name = 'token';
 const initialState = createInitialState();
 const extraActions = createExtraActions();
 const extraReducers = createExtraReducers();
@@ -32,7 +32,7 @@ function createExtraActions() {
 
     function getAll() {
         return createAsyncThunk(
-            `${name}/getAll`,
+            `${name}`,
             async () => await fetchWrapper.get(baseUrl)
         );
     }

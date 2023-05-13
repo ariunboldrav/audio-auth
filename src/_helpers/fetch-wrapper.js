@@ -3,6 +3,7 @@ import { store, authActions } from '_store';
 export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),
+    patch: request('PATCH'),
     put: request('PUT'),
     delete: request('DELETE')
 };
