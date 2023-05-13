@@ -5,6 +5,7 @@ import InputField from '_components/inputs/InputField';
 import { userActions } from '_store';
 import { useNavigate } from 'react-router-dom';
 import CheckBox from '_components/inputs/CheckBox';
+import MyDatePicker from '_components/inputs/MyDatePicker';
 // import Datepicker from "flowbite-datepicker/Datepicker";
 export { Campaign };
 
@@ -20,15 +21,14 @@ function Campaign() {
     const [checkTotal, setCheckTotal] = useState(false);
     const [checkCreate, setCheckCreate] = useState(false);
 
-
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [errorMessage, setErrorMessage] = useState([])
 
     // const [currentPass, setCurrentPass] = useState('');
     const { from } = history.location.state || { from: { pathname: '/' } };
 
     useEffect(() => {
-
         dispatch(userActions.getAll());
         handleCampaign()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,7 +47,7 @@ function Campaign() {
             setStartDate(campaign.when_start)
             setEndDate(campaign.when_end)
         } else {
-            navigate('/login')
+            // navigate('/login')
         }
     }
 
@@ -60,7 +60,11 @@ function Campaign() {
             startDate: startDate,
             endDate: endDate
         })
-        if (user) {
+
+        if(user.statusCode == 400) {
+            setErrorMessage(user.message)
+            console.log(user.message)
+        } else {
             navigate('/spec')
         }
     }
@@ -106,12 +110,12 @@ function Campaign() {
                             <CheckBox label="相談したい" setHandle={onChangeFreeCreate} default={checkCreate} />
                         </div>
                         <div className=" mb-6">
-                            <InputField label="広告配信の開始日" value={startDate} setValue={setStartDate} />
-                            {/* <MyDatePicker /> */}
+                            {/* <InputField label="広告配信の開始日" value={startDate} setValue={setStartDate} /> */}
+                            <MyDatePicker label="広告配信の開始日" value={startDate} setValue={setStartDate} />
                         </div>
                         <div className=" mb-6">
-                            <InputField label="広告配信の終了日" value={endDate} setValue={setEndDate} />
-
+                            {/* <InputField label="広告配信の終了日" value={endDate} setValue={setEndDate} /> */}
+                            <MyDatePicker label="広告配信の終了日" value={endDate} setValue={setEndDate} />
                         </div>
                         <div></div>
                         <div>

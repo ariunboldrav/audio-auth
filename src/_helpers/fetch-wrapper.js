@@ -50,9 +50,8 @@ function handleResponse(response) {
                 const logout = () => store.dispatch(authActions.logout());
                 logout();
             }
-
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
+            // const error = (data && data.message) || response.statusText;
+            // return Promise.reject(error);
         }
 
         return data;
