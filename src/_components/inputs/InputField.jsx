@@ -20,7 +20,7 @@ const InputField = (props) => {
           disabled={props.disabled}
           placeholder={props.placeholder}
           onChange={(e) => props.setValue(e.target.value)}
-          className={`${props.disabled ? 'bg-gray-300' : 'bg-gray-50'} border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-0 hover:border-primary`}
+          className={`${props.disabled ? 'bg-gray-200' : 'bg-gray-50'} border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-0 hover:border-primary`}
           required
         />
       </div>

@@ -3,8 +3,8 @@ import React from "react";
 const CheckBox = (props) => {
   return (
     <>
-      <label onClick={props.setHandle} className="pt-2 text-gray-600 text-sm cursor-pointer">
-        <div className="flex items-center mb-2">
+      <label onClick={props.setHandle} className="text-gray-600 text-sm cursor-pointer">
+        <div className="flex items-center">
           <div className="w-7">
             <svg
               xmlns="http://www.w3.org/2000/svg"

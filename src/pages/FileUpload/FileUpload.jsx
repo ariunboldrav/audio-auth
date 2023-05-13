@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import CheckBox from '_components/inputs/CheckBox';
 import MyDatePicker from '_components/inputs/MyDatePicker';
 // import Datepicker from "flowbite-datepicker/Datepicker";
-export { Campaign };
+export { FileUpload };
 
-function Campaign() {
+function FileUpload() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
@@ -85,41 +85,13 @@ function Campaign() {
 
     return (
         <div className="">
-            <h2 className="text-black mt-2">キャンペーン情報</h2>
+            <h2 className="text-black mt-2">素材のアップロード</h2>
             <div className="my-6">
                 <form>
                     <div className="grid gap-4 grid-cols-2">
-                        <div className="mb-6">
-                            <InputField label="キャンペーン名" value={name} setValue={setName} />
-                        </div>
-                        <div className="mb-6">
-                            <InputField label="商品、またはブランドの名前" value={brandName} setValue={setBrandName} />
-                        </div>
-                    </div>
-                    <div className="grid gap-4 grid-cols-2">
-                        <div className=" mb-6">
-                            <InputField label="広告配信の予算" value={totalBudget} setValue={setTotalBudget} disabled={checkTotal} />
-                            <div className='mt-2'>
-                                <CheckBox label="相談したい" setHandle={onChangeFreeTotal} default={checkTotal} />
-                            </div>
-                        </div>
-                        <div className=" mb-6">
-                            <InputField label="広告作成の予算" value={createBudget} setValue={setCreateBudget} disabled={checkCreate} />
-                            <div className='mt-2'>
-                                <CheckBox label="相談したい" setHandle={onChangeFreeCreate} default={checkCreate} />
-                            </div>
-                        </div>
-                        <div className=" mb-6">
-                            {/* <InputField label="広告配信の開始日" value={startDate} setValue={setStartDate} /> */}
-                            <MyDatePicker label="広告配信の開始日" value={startDate} setValue={setStartDate} />
-                        </div>
-                        <div className=" mb-6">
-                            {/* <InputField label="広告配信の終了日" value={endDate} setValue={setEndDate} /> */}
-                            <MyDatePicker label="広告配信の終了日" value={endDate} setValue={setEndDate} />
-                        </div>
                         <div>
                             <button
-                                onClick={() => navigate('/company')}
+                                onClick={() => navigate('content')}
                                 type='button'
                                 className="flex float-left text-primary border font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                             >
@@ -133,7 +105,7 @@ function Campaign() {
                                 type='button'
                                 className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                             >
-                                Next
+                                Submit
                             </button>
                             <div className="clear"></div>
                         </div>

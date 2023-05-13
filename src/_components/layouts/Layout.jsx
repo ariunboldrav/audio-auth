@@ -5,7 +5,7 @@ import React from 'react';
 const Layout = ({ children }) => {
     return (
         <div className=''>
-            <div className='fixed top-0 left-0 z-40 w-64 h-screen border-right'>
+            <div className='fixed top-0 left-0 z-40 w-64 h-screen border-right bg-gray-100'>
                 <SideBar />
             </div>
             <div className='h-screen'>

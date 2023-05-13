@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { fetchWrapper } from '_helpers';
 import InputField from '_components/inputs/InputField';
 import InputFieldMore from '_components/inputs/InputFieldMore';
+import CheckBox from '_components/inputs/CheckBox';
 import { userActions } from '_store';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +12,11 @@ export { Specification };
 function Specification() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
+
+    const checkMediaList = [
+        { lable: '音楽', check: false },
+        { lable: 'ポッドキャスト', check: false }
+    ]
 
     const [media, setMedia] = useState('');
 
@@ -69,6 +75,7 @@ function Specification() {
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
                             <InputField label="配信先のメディアフォーマット" placeholder={`その他`} value={media} setValue={setMedia} />
+
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
@@ -110,6 +117,17 @@ function Specification() {
                                     />
                                 } />
                         </div>
+                    </div>
+                    <div></div>
+                    <div>
+                        <button
+                            onClick={() => navigate('/campaign')}
+                            type='button'
+                            className="flex float-left text-primary border font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                        >
+                            Back
+                        </button>
+                        <div className="clear"></div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <button

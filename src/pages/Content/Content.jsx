@@ -128,6 +128,17 @@ function Content() {
                             <InputField label="E10. その他コメント" info={`他に制作に役立つ関連情報・コメントがあれば教えてください。過去キャンペーンなど参考とすべきものがありましたら、併せてお知らせ下さい。`} value={comments} setValue={setComments} />
                         </div>
                     </div>
+                    <div></div>
+                    <div>
+                        <button
+                            onClick={() => navigate('/spec')}
+                            type='button'
+                            className="flex float-left text-primary border font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                        >
+                            Back
+                        </button>
+                        <div className="clear"></div>
+                    </div>
                     <div className="mb-0 col-span-2">
                         <button
                             onClick={() => onSubmit()}
