@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames'
 import { authActions } from '_store';
+import Logo from './Logo';
 
 export { SideBar };
 
@@ -55,7 +56,8 @@ function SideBar() {
     const dispatch = useDispatch();
     const logout = () => dispatch(authActions.logout());
     return (
-        <div>
+        <div className=''>
+            <Logo />
             <ul className="py-2 flex flex-col gap-2">
                 {leftItems.map((item, index) => {
                     return (

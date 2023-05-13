@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { history } from '_helpers';
 import { authActions } from '_store';
+import Logo from '../../_components/Logo';
 
 export { Login };
 
@@ -37,34 +38,35 @@ function Login() {
     }
 
     return (
-        <div className="col-md-6 offset-md-3 mt-5">
-            <div className="alert alert-info">
-                Username: test<br />
-                Password: test
-            </div>
-            <div className="card">
-                <h4 className="card-header">Login</h4>
+        <div className="col-md-4 mx-auto offset-md-3 pt-5">
+            <Logo />
+            <div className="card rounded-md mb-10">
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
-                            <label>Username</label>
-                            <input name="email" type="text" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} />
+                            <label>Email</label>
+                            <input name="email" type="text" {...register('email')} className={`rounded-md form-control ${errors.email ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.email?.message}</div>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
-                            <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
+                            <input name="password" type="password" {...register('password')} className={`rounded-md form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
-                        <button disabled={isSubmitting} className="btn btn-primary">
-                            {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Login
-                        </button>
+                        <div className='text-right'>
+                            <button disabled={isSubmitting} className="rounded-md px-5 btn btn-primary font-light">
+                                {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                Login
+                            </button></div>
                         {authError &&
                             <div className="alert alert-danger mt-3 mb-0">{authError.message}</div>
                         }
                     </form>
                 </div>
+            </div>
+            <div className="">
+                Email: test<br />
+                Password: test
             </div>
         </div>
     )

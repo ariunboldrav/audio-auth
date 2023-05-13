@@ -5,10 +5,10 @@ import React from 'react';
 const Layout = ({ children }) => {
     return (
         <div className=''>
-            <div className='fixed top-0 left-0 z-40 w-64 h-screen border-right bg-gray-100'>
+            <div className='fixed top-0 left-0 z-40 w-64 h-screen border-right bg-gray-50'>
                 <SideBar />
             </div>
-            <div className='h-screen'>
+            <div className='h-screen bg-white'>
                 <Nav />
                 <div className='max-w-2xl mx-auto my-20 pb-20'>
                     <main>{children}</main>

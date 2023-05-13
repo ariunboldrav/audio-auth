@@ -22,7 +22,7 @@ function App() {
     }
 
     return (
-        <div className="app-container">
+        <div className="app-container bg-gray-50 h-screen">
             <Routes>
                 <Route path="/" element={authPage(<Company />)} />
                 <Route path="/campaign" element={authPage(<Campaign />)} />
