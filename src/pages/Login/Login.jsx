@@ -65,8 +65,8 @@ function Login() {
                 </div>
             </div>
             <div className="">
-                Email: test<br />
-                Password: test
+                Email: test@gmail.com<br />
+                Password: password
             </div>
         </div>
     )
