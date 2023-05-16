@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { history } from '_helpers';
 import { authActions } from '_store';
 import Logo from '../../_components/Logo';
+import { NavLink } from 'react-router-dom';
 
 export { Login };
 
@@ -53,11 +54,17 @@ function Login() {
                             <input name="password" type="password" {...register('password')} className={`rounded-md form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
-                        <div className='text-right'>
-                            <button disabled={isSubmitting} className="rounded-md px-5 btn btn-primary font-light">
-                                {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                                Login
-                            </button></div>
+                        <div className='flex justify-between items-center'>
+                            <div>
+                                <NavLink to="/">Register</NavLink>
+                            </div>
+                            <div className='text-right'>
+                                <button disabled={isSubmitting} className="rounded-md px-5 btn btn-primary bg-primary font-light">
+                                    {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                    Login
+                                </button>
+                            </div>
+                        </div>
                         {authError &&
                             <div className="alert alert-danger mt-3 mb-0">{authError.message}</div>
                         }

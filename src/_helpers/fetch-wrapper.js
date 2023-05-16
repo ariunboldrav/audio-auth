@@ -1,4 +1,5 @@
 import { store, authActions } from '_store';
+import { history } from '_helpers';
 
 export const fetchWrapper = {
     get: request('GET'),

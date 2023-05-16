@@ -52,19 +52,29 @@ function Content() {
     }
 
     function handleE1d(value) {
-        // setStyleAdv(value)
-        var isMatch = goal.toUpperCase().includes(`, ${value}`)
-        if (isMatch) {
-            var newData = goal.replaceAll(`, ${value}`, '')
-            setGoal(newData)
-            // alert(true)
+        if (goal) {
+            var isMatch = goal.toLocaleLowerCase().includes(`, ${value}`.toLocaleLowerCase())
+            var isMatch2 = goal.toLocaleLowerCase().includes(`${value}`.toLocaleLowerCase())
+            if (isMatch) {
+                var newData = goal.replaceAll(`, ${value}`, '')
+                setGoal(newData)
+            } else if (isMatch2) {
+                var newData = goal.replaceAll(`${value}`, '')
+                setGoal(newData)
+            } else {
+                setGoal(goal + `, ${[value]}`)
+            }
         } else {
-            setGoal(goal + `, ${[value]}`)
+            setGoal(`${[value]}`)
         }
+
     }
 
     function checkE1d(value) {
-        return goal.toUpperCase().includes(`${value}`)
+        if (goal) {
+            return goal.toLocaleLowerCase().includes(`${value}`.toLocaleLowerCase())
+        }
+        return false
     }
 
     async function onSubmit() {
@@ -160,26 +170,21 @@ function Content() {
                             <InputField label="E10. その他コメント" info={`他に制作に役立つ関連情報・コメントがあれば教えてください。過去キャンペーンなど参考とすべきものがありましたら、併せてお知らせ下さい。`} value={comments} setValue={setComments} />
                         </div>
                     </div>
-                    <div></div>
                     <div>
                         <button
                             onClick={() => navigate('/spec')}
                             type='button'
-                            className="flex float-left text-primary border font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                        >
+                            className="flex float-left text-primary border font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                             Back
                         </button>
-                        <div className="clear"></div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <button
                             onClick={() => onSubmit()}
                             type='button'
-                            className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                        >
+                            className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                             Next
                         </button>
-                        <div className="clear"></div>
                     </div>
                 </form>
             </div>

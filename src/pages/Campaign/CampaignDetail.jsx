@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchWrapper } from '_helpers';
 import CsvDownloadButton from 'react-json-to-csv'
+import { useParams } from 'react-router-dom'
 // import Datepicker from "flowbite-datepicker/Datepicker";
 export { CampaignDetail };
 
@@ -11,7 +12,7 @@ function CampaignDetail() {
     const [campaign, setCampaign] = useState("");
     const [spec, setSpec] = useState("");
     const [content, setContent] = useState("");
-
+    let { id } = useParams();
     useEffect(() => {
         // dispatch(userActions.getAll());
         handleCampaign()
@@ -19,13 +20,14 @@ function CampaignDetail() {
     }, []);
 
     async function handleCampaign() {
-        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign`)
-        const campaign = data.campaigns[0]
-        const spec = campaign.spec
-        setCompany(data)
-        setCampaign(campaign)
-        setSpec(campaign.spec)
-        setContent(campaign.content)
+        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign/` + id)
+        if (data.campaigns) {
+            const campaign = data.campaigns[0]
+            setCompany(data)
+            setCampaign(campaign)
+            setSpec(campaign.spec)
+            setContent(campaign.content)
+        }
     }
 
     return (

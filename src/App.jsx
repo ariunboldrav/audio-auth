@@ -29,7 +29,7 @@ function App() {
                 <Route path="/" element={<Layout><Register /></Layout>} />
                 <Route path="/company" element={authPage(<Company />)} />
                 <Route path="/campaign" element={authPage(<Campaign />)} />
-                <Route path="/campaign/detail" element={authPage(<CampaignDetail />)} />
+                <Route path="/campaign/:id" element={authPage(<CampaignDetail />)} />
                 <Route path="/campaigns" element={authPage(<CampaignList />)} />
                 <Route path="/spec" element={authPage(<Specification />)} />
                 <Route path="/content" element={authPage(<Content />)} />

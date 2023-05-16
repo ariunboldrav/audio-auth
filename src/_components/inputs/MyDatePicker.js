@@ -51,7 +51,7 @@ const MyDatePicker = (props) => {
       next: () => <span>Next</span>,
     },
     datepickerClassNames: "top-12",
-    defaultDate: selectedDate,
+    defaultDate: selectedDate != undefined ? selectedDate : new Date(),
     language: "en",
   };
 

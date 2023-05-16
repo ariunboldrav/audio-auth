@@ -27,11 +27,14 @@ function Company() {
 
     async function handleCompany() {
         const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/users/profile`)
+        
         if (data) {
-            setCompName(data.companies[0].name)
-            setEmpName(data.full_name)
-            setEmail(data.email)
-            setPhone(data.phone)
+            if (data.companies) {
+                setCompName(data.companies[0].name)
+                setEmpName(data.full_name)
+                setEmail(data.email)
+                setPhone(data.phone)
+            }
         } else {
             navigate('/login')
         }

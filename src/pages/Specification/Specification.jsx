@@ -75,7 +75,6 @@ function Specification() {
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
                             <InputField label="配信先のメディアフォーマット" placeholder={`その他`} value={media} setValue={setMedia} />
-
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
@@ -119,7 +118,6 @@ function Specification() {
                                 } />
                         </div>
                     </div>
-                    <div></div>
                     <div>
                         <button
                             onClick={() => navigate('/campaign')}
