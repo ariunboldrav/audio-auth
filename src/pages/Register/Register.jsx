@@ -1,71 +1,90 @@
-import { useEffect } from 'react';
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import { history } from '_helpers';
-import { authActions } from '_store';
+import { history, fetchWrapper } from '_helpers';
+import InputField from '_components/inputs/InputField';
+import { userActions, authActions } from '_store';
+import { useNavigate } from 'react-router-dom';
+import PasswordField from '_components/inputs/PasswordField';
 
 export { Register };
 
 function Register() {
+    const navigate = useNavigate()
     const dispatch = useDispatch();
-    const authUser = useSelector(x => x.auth.user);
-    const authError = useSelector(x => x.auth.error);
+    const { user: authUser } = useSelector(x => x.auth);
+    const [compName, setCompName] = useState('');
+    const [empName, setEmpName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [confPass, setConfPass] = useState('');
 
     useEffect(() => {
-        // redirect to home if already logged in
-        if (authUser) history.navigate('/');
-
+        dispatch(userActions.getAll());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // form validation rules 
-    const validationSchema = Yup.object().shape({
-        email: Yup.string().required('Email is required'),
-        password: Yup.string().required('Password is required')
-    });
-    const formOptions = { resolver: yupResolver(validationSchema) };
+    async function onSubmit() {
 
-    // get functions to build form with useForm() hook
-    const { register, handleSubmit, formState } = useForm(formOptions);
-    const { errors, isSubmitting } = formState;
+        if (password != confPass && password.length < 6) {
+            return null;
+        }
 
-    function onSubmit({ email, password }) {
-        return dispatch(authActions.login({ email, password }));
+        const register = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
+            email: email,
+            fullName: empName,
+            phone: phone,
+            compName: compName,
+            password: password
+            // currentPass: currentPass
+        })
+        if (register) {
+            return dispatch(authActions.login({ email, password }));
+        }
     }
 
     return (
-        <div className="col-md-6 offset-md-3 mt-5">
-            <div className="alert alert-info">
-                Username: test<br />
-                Password: test
-            </div>
-            <div className="card">
-                <h4 className="card-header">Login</h4>
-                <div className="card-body">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-group">
-                            <label>Username</label>
-                            <input name="email" type="text" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} />
-                            <div className="invalid-feedback">{errors.email?.message}</div>
+        <div className="">
+            <h2 className="text-black mt-2">依頼主様情報</h2>
+            <div className="my-6">
+                <form>
+                    <div className="grid gap-4 grid-cols-2">
+                        <div className="mb-6">
+                            <InputField label="会社名" value={compName} setValue={setCompName} />
                         </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                            <div className="invalid-feedback">{errors.password?.message}</div>
+                        <div className="mb-6">
+                            <InputField label="担当者様 氏名" value={empName} setValue={setEmpName} />
                         </div>
-                        <button disabled={isSubmitting} className="btn btn-primary">
-                            {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Login
-                        </button>
-                        {authError &&
-                            <div className="alert alert-danger mt-3 mb-0">{authError.message}</div>
-                        }
-                    </form>
-                </div>
+                    </div>
+                    <div className="grid gap-4 grid-cols-2">
+                        <div className="mb-6">
+                            <InputField label="担当者様 メールアドレス" value={email} setValue={setEmail} />
+                        </div>
+                        <div className="mb-6">
+                            <InputField label="担当者様 電話番号" value={phone} setValue={setPhone} />
+                        </div>
+                    </div>
+                    <div className="grid gap-4 grid-cols-2">
+                        <div className="mb-6">
+                            <PasswordField label="Password" value={password} setValue={setPassword} />
+                        </div>
+                        <div className="mb-6">
+                            <PasswordField label="Password" value={confPass} setValue={setConfPass} />
+                        </div>
+                        <div></div>
+                        <div>
+                            <button
+                                onClick={() => onSubmit()}
+                                type='button'
+                                className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                            >
+                                Next
+                            </button>
+                            <div className="clear"></div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    )
+    );
 }

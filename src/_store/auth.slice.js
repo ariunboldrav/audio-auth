@@ -72,7 +72,7 @@ function createExtraReducers() {
                 state.user = user;
 
                 // get return url from location state or default to home page
-                const { from } = history.location.state || { from: { pathname: '/' } };
+                const { from } = history.location.state || { from: { pathname: '/company' } };
                 history.navigate(from);
             },
             [rejected]: (state, action) => {

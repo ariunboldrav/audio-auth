@@ -4,12 +4,10 @@ const InputField = (props) => {
   return (
     <>
       <div>
-        <label className=" text-gray-900 text-sm" htmlFor="talkAdvBudget">
-          {props.label}
-        </label>
-        <label className=" text-gray-600 text-sm" htmlFor="talkAdvBudget">
-          <div className="mb-2"> {props.info}</div>
-        </label>
+        {props.label ?
+          <label className={`${props.class} text-sm`} htmlFor={props.domId}>
+            {props.label}
+          </label> : null}
         {props.extInput1}
         {props.extInput2}
         {props.extInput3}

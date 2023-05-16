@@ -1,7 +1,6 @@
 import { Nav } from '_components';
 import { SideBar } from '_components/SideBar';
 import React from 'react';
-
 const Layout = ({ children }) => {
     return (
         <div className=''>

@@ -2,8 +2,8 @@ import React from "react";
 
 const CheckBox = (props) => {
   return (
-    <>
-      <label onClick={props.setHandle} className="text-gray-600 text-sm cursor-pointer">
+    <div>
+      <label onClick={props.setHandle} id={props.domId} className="text-gray-600 text-sm cursor-pointer">
         <div className="flex items-center">
           <div className="w-7">
             <svg
@@ -31,7 +31,7 @@ const CheckBox = (props) => {
         </div>
       </label>
 
-    </>
+    </div>
   );
 };
 

@@ -4,6 +4,8 @@ import { fetchWrapper } from '_helpers';
 import InputField from '_components/inputs/InputField';
 import { userActions } from '_store';
 import { useNavigate } from 'react-router-dom';
+import { checkBoxItems } from '_helpers/checkSomeData';
+import CheckBox from '_components/inputs/CheckBox';
 
 export { Content };
 
@@ -49,6 +51,22 @@ function Content() {
         }
     }
 
+    function handleE1d(value) {
+        // setStyleAdv(value)
+        var isMatch = goal.toUpperCase().includes(`, ${value}`)
+        if (isMatch) {
+            var newData = goal.replaceAll(`, ${value}`, '')
+            setGoal(newData)
+            // alert(true)
+        } else {
+            setGoal(goal + `, ${[value]}`)
+        }
+    }
+
+    function checkE1d(value) {
+        return goal.toUpperCase().includes(`${value}`)
+    }
+
     async function onSubmit() {
         const contents = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/content`, {
             content,
@@ -80,7 +98,15 @@ function Content() {
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E1. 今回のキャンペーンでの目標を教えてください。" value={goal} setValue={setGoal} />
+                            <label className="text-gray-900 text-sm" htmlFor="talkAdvBudget">
+                                E1. 今回のキャンペーンでの目標を教えてください。
+                            </label>
+                            <div>
+                                {checkBoxItems.e1.items.map((item, i) => {
+                                    return <CheckBox key={`e1${i}`} label={`${item}`} domId={`e4${i}`} setHandle={() => { handleE1d(item) }} default={checkE1d(item)} />
+                                })}
+                            </div>
+                            <InputField value={goal} setValue={setGoal} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
@@ -95,7 +121,13 @@ function Content() {
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E4. 広告のスタイルの希望はありますか？" value={styleAdv} setValue={setStyleAdv} />
+                            <label className="text-gray-900 text-sm" htmlFor="talkAdvBudget">
+                                E4. 広告のスタイルの希望はありますか？
+                            </label>
+                            {checkBoxItems.e4.items.map((item, i) => {
+                                return <CheckBox key={`e4${i}`} label={`${item}`} domId={`e4${i}`} setHandle={() => { setStyleAdv(item) }} default={styleAdv == item} />
+                            })}
+                            <InputField value={styleAdv} setValue={setStyleAdv} index={`e4${checkBoxItems.e4.items.length + 1}`} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">

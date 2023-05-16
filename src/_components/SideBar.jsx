@@ -9,7 +9,7 @@ export { SideBar };
 const leftItems = [
     {
         name: '依頼主様情報',
-        to: '/',
+        to: '/company',
         icon: null,
     },
     {

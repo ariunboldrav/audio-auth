@@ -68,7 +68,7 @@ function Specification() {
     }
 
     return (
-        <div className="">
+        <div className="transition delay-300">
             <h2 className="text-black mt-2">依頼主様情報</h2>
             <div className="my-6">
                 <form>
@@ -114,6 +114,7 @@ function Specification() {
                                         setValue={setLogoFreq}
                                         info="112 x 112"
                                         label="Spotifyでは最低このサイズでアスペクト比1:1のものが必要となります"
+                                        class="formInput"
                                     />
                                 } />
                         </div>
