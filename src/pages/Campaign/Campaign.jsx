@@ -45,7 +45,8 @@ function Campaign() {
             const content = campaign.content
 
             if (campaign && spec && content) {
-                navigate('/campaign/detail')
+                navigate('/campaign/'+campaign.id)
+                // alert(campaign.id)
             }
 
             setName(campaign.name)
