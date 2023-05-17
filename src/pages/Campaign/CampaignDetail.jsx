@@ -33,7 +33,7 @@ function CampaignDetail() {
 
     return (
         <div className="">
-            <CsvDownloadButton data={campaign} delimiter=";" name="OO" />
+            <CsvDownloadButton data={[content]} delimiter="," />
             <div className="my-6">
             </div>
             <h1 className='mt-3'>キャンペーン情報</h1>
@@ -90,20 +90,31 @@ function CampaignDetail() {
                     </tr>
                 </tbody>
             </table>
-
-            <h1 className='mt-3'>依頼主様情報</h1>
-            <div>
-                <div>E1. 内容</div><div> {content.content}</div>
-                <div>E1. 今回のキャンペーンでの目標を教えてください。</div><div>{content.goal}</div>
-                <div>E2. 希望のCTA (Call-to-Action)</div><div>{content.desired}</div>
-                <div>E3. 広告のターゲットオーディエンスを教えたください。</div><div>{content.target_audience}</div>
-                <div>E4. 広告のスタイルの希望はありますか？</div><div>{content.style_adv}</div>
-                <div>E5. 広告を聞いた後、オーディエンスに感じて欲しい気持ちを教えてください。</div><div> {content.audience_feel}</div>
-                <div>E6. ナレーターのキャラクターや話し方のトーンに希望はありますか？</div><div>{content.hope}</div>
-                <div>E7. 広告内で伝えたい製品・サービスの特徴をご記入ください。</div><div>{content.features}</div>
-                <div>E8. 広告での訴求ポイント・キーメッセージについて</div><div>{content.key_messages}</div>
-                <div>E9. ブランドガイドラインやトーン＆マナーについて</div><div>{content.guide_tone}</div>
-                <div>E10. その他コメント </div><div> {content.comments}</div>
+            {JSON.stringify(content)}
+            <h1 className='mt-3 mb-3'>依頼主様情報</h1>
+            <div className='pl-2'>
+                <div>E1. 内容</div>
+                <div className='text-sm mb-2 mt-1'>{content.content}</div>
+                <div>E1. 今回のキャンペーンでの目標を教えてください。</div>
+                <div className='text-sm mb-2 mt-1'>{content.goal}</div>
+                <div>E2. 希望のCTA (Call-to-Action)</div>
+                <div className='text-sm mb-2 mt-1'>{content.desired}</div>
+                <div>E3. 広告のターゲットオーディエンスを教えたください。</div>
+                <div className='text-sm mb-2 mt-1'>{content.target_audience}</div>
+                <div>E4. 広告のスタイルの希望はありますか？</div>
+                <div className='text-sm mb-2 mt-1'>{content.style_adv}</div>
+                <div>E5. 広告を聞いた後、オーディエンスに感じて欲しい気持ちを教えてください。</div>
+                <div className='text-sm mb-2 mt-1'>{content.audience_feel}</div>
+                <div>E6. ナレーターのキャラクターや話し方のトーンに希望はありますか？</div>
+                <div className='text-sm mb-2 mt-1'>{content.hope}</div>
+                <div>E7. 広告内で伝えたい製品・サービスの特徴をご記入ください。</div>
+                <div className='text-sm mb-2 mt-1'>{content.features}</div>
+                <div>E8. 広告での訴求ポイント・キーメッセージについて</div>
+                <div className='text-sm mb-2 mt-1'>{content.key_messages}</div>
+                <div>E9. ブランドガイドラインやトーン＆マナーについて</div>
+                <div className='text-sm mb-2 mt-1'>{content.guide_tone}</div>
+                <div>E10. その他コメント </div>
+                <div className='text-sm mb-2 mt-1'> {content.comments}</div>
             </div>
         </div>
     );

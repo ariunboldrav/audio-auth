@@ -92,7 +92,7 @@ function Content() {
             targetAudience
         })
         if (contents) {
-            navigate('/spec')
+            navigate('/campaign')
         }
     }
 

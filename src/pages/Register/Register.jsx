@@ -70,7 +70,7 @@ function Register() {
                             <PasswordField label="新規パスワード" value={password} setValue={setPassword} />
                         </div>
                         <div className="mb-6">
-                            <PasswordField label="新規パスワード（確認" value={confPass} setValue={setConfPass} />
+                            <PasswordField label="新規パスワード（確認)" value={confPass} setValue={setConfPass} />
                         </div>
                         <div></div>
                         <div>
