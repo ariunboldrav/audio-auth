@@ -46,7 +46,7 @@ function Register() {
 
     return (
         <div className="">
-            <h2 className="text-black mt-2">依頼主様登録</h2>
+            <h2 className="text-black mt-2">依頼主様登録 (v1.0.1)</h2>
             <div className="my-6">
                 <form>
                     <div className="grid gap-4 grid-cols-2">

@@ -47,7 +47,7 @@ function Content() {
             setGuidelineTone(data.guideline_tone)
             setTargetAudience(data.target_audience)
         } else {
-            navigate('/login')
+            // navigate('/login')
         }
     }
 

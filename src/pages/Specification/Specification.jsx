@@ -47,7 +47,7 @@ function Specification() {
             setLogoSize(data.logo_size)
             setLogoFreq(data.logo_freq)
         } else {
-            navigate('/login')
+            // navigate('/login')
         }
     }
 
@@ -68,13 +68,14 @@ function Specification() {
     }
 
     return (
-        <div className="transition delay-300">
+        <div className="delay-1000">
             <h2 className="text-black mt-2">依頼主様情報</h2>
             <div className="my-6">
                 <form>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
                             <InputField label="配信先のメディアフォーマット" placeholder={`その他`} value={media} setValue={setMedia} />
+
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
@@ -118,6 +119,7 @@ function Specification() {
                                 } />
                         </div>
                     </div>
+                    <div></div>
                     <div>
                         <button
                             onClick={() => navigate('/campaign')}

@@ -90,7 +90,7 @@ function CampaignDetail() {
                     </tr>
                 </tbody>
             </table>
-            {JSON.stringify(content)}
+            {/* {JSON.stringify(content)} */}
             <h1 className='mt-3 mb-3'>依頼主様情報</h1>
             <div className='pl-2'>
                 <div>E1. 内容</div>
