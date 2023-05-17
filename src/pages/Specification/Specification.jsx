@@ -39,13 +39,13 @@ function Specification() {
     async function handleCompany() {
         const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/spec`)
         if (data) {
-            setMedia(data.media)
-            setSeconds(data.seconds)
-            setSecondsFreq(data.seconds_freq)
-            setBannerSize(data.banner_size)
-            setBannerFreq(data.banner_freq)
-            setLogoSize(data.logo_size)
-            setLogoFreq(data.logo_freq)
+            setMedia(data.media ? data.media : 'default_media')
+            setSeconds(data.seconds ? data.seconds : data.seconds)
+            setSecondsFreq(data.seconds_freq ? data.seconds_freq : 0)
+            setBannerSize(data.banner_size ? data.banner_size : '600x600')
+            setBannerFreq(data.banner_freq ? data.banner_freq : 0)
+            setLogoSize(data.logo_size ? data.logo_size : '112x112')
+            setLogoFreq(data.logo_freq ? data.logo_freq : 0)
         } else {
             // navigate('/login')
         }
