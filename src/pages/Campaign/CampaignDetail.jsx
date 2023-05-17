@@ -33,7 +33,7 @@ function CampaignDetail() {
 
     return (
         <div className="">
-            <CsvDownloadButton data={[content]} delimiter="," />
+
             <div className="my-6">
             </div>
             <h1 className='mt-3'>キャンペーン情報</h1>
@@ -116,6 +116,19 @@ function CampaignDetail() {
                 <div>E10. その他コメント </div>
                 <div className='text-sm mb-2 mt-1'> {content.comments}</div>
             </div>
+            <CsvDownloadButton data={[content]} delimiter="," style={{ //pass other props, like styles
+                boxShadow: "inset 0px 1px 0px 0px #e184f3",
+                background: "linear-gradient(to bottom, #c123de 5%, #a20dbd 100%)",
+                borderRadius: "6px",
+                border: "1px solid #a511c0",
+                display: "inline-block",
+                cursor: "pointer", "color": "#ffffff",
+                fontSize: "15px",
+                fontWeight: "bold",
+                padding: "6px 24px",
+                textDecoration: "none",
+                textShadow: "0px 1px 0px #9b14b3"
+            }} className="bg-primary" filename={`audio_ai_tool_${campaign.when_start}.csv`}>Download CSV</CsvDownloadButton>
         </div>
     );
 }
