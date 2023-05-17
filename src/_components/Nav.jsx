@@ -24,7 +24,8 @@ function Nav() {
     return (
         <nav className="flex justify-end bg-white pt-2 pr-2">
             <div className="flex justify-center">
-                <NavLink to="/company" className="nav-item nav-link primary">Hello! {users.full_name}</NavLink>
+                <NavLink to="/company" className="nav-item nav-link primary">Welcome {users.full_name}!</NavLink>
+                {users.studio ? <NavLink to="/company" className="nav-item nav-link primary">Campaign List</NavLink> : null}
                 <NavLink onClick={logout} className="nav-item nav-link primary">Logout</NavLink>
             </div>
         </nav>

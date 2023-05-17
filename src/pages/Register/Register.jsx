@@ -79,7 +79,7 @@ function Register() {
                                 type='button'
                                 className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                             >
-                                Next
+                                Register
                             </button>
                             <div className="clear"></div>
                         </div>
