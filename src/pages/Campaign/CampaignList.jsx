@@ -48,7 +48,7 @@ function CampaignList() {
                             return (
                                 <tr className={`${i % 2 == 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-primary border-b dark:bg-gray-900 dark:border-gray-700`} key={i}>
                                     <td className="px-6 py-2">
-                                        <NavLink className={`hover:text-primary`} to={`campaign/detail/${item.id}`}>
+                                        <NavLink className={`hover:text-primary`} to={`/campaign/${item.id}`}>
                                             {item.name}
                                         </NavLink>
                                     </td>
