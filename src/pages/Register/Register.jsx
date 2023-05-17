@@ -16,7 +16,7 @@ function Register() {
     const [compName, setCompName] = useState('');
     const [empName, setEmpName] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('+15713570011');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confPass, setConfPass] = useState('');
 
@@ -63,7 +63,6 @@ function Register() {
                         </div>
                         <div className="mb-6">
                             <InputField label="担当者様 電話番号" value={phone} setValue={setPhone} />
-                            <div className='text-sm text-gray-500'>Enter U.S Cellphone number. Please(test)</div>
                         </div>
                     </div>
                     <div className="grid gap-4 grid-cols-2">
