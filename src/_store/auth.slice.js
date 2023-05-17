@@ -70,7 +70,6 @@ function createExtraReducers() {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
                 state.user = user;
-
                 // get return url from location state or default to home page
                 const { from } = history.location.state || { from: { pathname: '/company' } };
                 history.navigate(from);
