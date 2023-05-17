@@ -34,7 +34,7 @@ function Register() {
         const register = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
             email: email,
             fullName: empName,
-            phone: '+15713570099',
+            phone: phone,
             compName: compName,
             password: password
             // currentPass: currentPass
@@ -46,7 +46,7 @@ function Register() {
 
     return (
         <div className="">
-            <h2 className="text-black mt-2">依頼主様情報</h2>
+            <h2 className="text-black mt-2">依頼主様登録</h2>
             <div className="my-6">
                 <form>
                     <div className="grid gap-4 grid-cols-2">
@@ -68,10 +68,10 @@ function Register() {
                     </div>
                     <div className="grid gap-4 grid-cols-2">
                         <div className="mb-6">
-                            <PasswordField label="Password" value={password} setValue={setPassword} />
+                            <PasswordField label="新規パスワード" value={password} setValue={setPassword} />
                         </div>
                         <div className="mb-6">
-                            <PasswordField label="Password" value={confPass} setValue={setConfPass} />
+                            <PasswordField label="新規パスワード（確認" value={confPass} setValue={setConfPass} />
                         </div>
                         <div></div>
                         <div>
