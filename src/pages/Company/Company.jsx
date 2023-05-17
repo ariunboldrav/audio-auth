@@ -35,6 +35,9 @@ function Company() {
                 setEmail(data.email)
                 setPhone(data.phone)
             }
+            if(data.studio == true) {
+                navigate('/campaigns')
+            }
         } else {
             navigate('/login')
         }
