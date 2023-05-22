@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { authActions } from '_store';
 
 export { Nav };
@@ -8,12 +8,12 @@ export { Nav };
 function Nav() {
     const { user: authUser } = useSelector(x => x.auth);
     const { users } = useSelector(x => x.users);
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const dispatch = useDispatch();
     const logout = () => dispatch(authActions.logout());
     // only show nav when logged in
-    if (!authUser) return (
+    if (!users) return (
         <nav className="flex justify-end bg-white pt-2 pr-2">
             <div className="flex justify-center">
                 <NavLink to="/login" className="nav-item nav-link primary">Sign In</NavLink>
@@ -23,11 +23,15 @@ function Nav() {
 
     return (
         <nav className="flex justify-end bg-white pt-2 pr-2">
-            <div className="flex justify-center">
-                <NavLink to="/company" className="nav-item nav-link primary">Welcome {users.full_name}!</NavLink>
-                {users.studio ? <NavLink to="/company" className="nav-item nav-link primary">Campaign List</NavLink> : null}
-                <NavLink onClick={logout} className="nav-item nav-link primary">Logout</NavLink>
-            </div>
+            {users.full_name ?
+                <div className="flex justify-center">
+                    <NavLink to="/company" className="nav-item nav-link primary">Welcome {users.full_name}!</NavLink>
+                    <NavLink onClick={logout} className="nav-item nav-link primary">Logout</NavLink>
+                </div>
+                :
+                <div className="flex justify-center">
+                    <NavLink to="/login" className="nav-item nav-link primary">Sign In</NavLink>
+                </div>}
         </nav>
     );
 }

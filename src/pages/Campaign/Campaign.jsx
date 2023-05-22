@@ -6,7 +6,11 @@ import { userActions } from '_store';
 import { useNavigate, useParams } from 'react-router-dom';
 import CheckBox from '_components/inputs/CheckBox';
 import MyDatePicker from '_components/inputs/MyDatePicker';
+import moment from 'moment';
+import ErrorHandler from '_helpers/errorHandler';
+
 export { Campaign };
+
 
 function Campaign() {
     const navigate = useNavigate()
@@ -20,10 +24,9 @@ function Campaign() {
     const [checkTotal, setCheckTotal] = useState(false);
     const [checkCreate, setCheckCreate] = useState(false);
 
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [errorMessage, setErrorMessage] = useState([])
-
+    const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
+    const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
+    const [errorMsg, setErrorMsg] = useState()
 
     useEffect(() => {
         dispatch(userActions.getAll());
@@ -32,35 +35,51 @@ function Campaign() {
     }, []);
 
     async function handleCampaign() {
-        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign/`+id)
-        console.log(data)
-        if (data.campaigns.length > 0) {
-            const campaign = data.campaigns[0]
-            setName(campaign.name)
-            setBrandName(campaign.brand_name)
-            setTotalBudget(campaign.total_budget <= 0 ? '' : campaign.total_budget)
-            setCreateBudget(campaign.create_budget <= 0 ? '' : campaign.create_budget)
-            setCheckTotal(campaign.total_budget > 0 ? false : true)
-            setCheckCreate(campaign.create_budget > 0 ? false : true)
-            setStartDate(campaign.when_start)
-            setEndDate(campaign.when_end)
+        if (id != 0) {
+            try {
+                const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign/` + id)
+                if (data) {
+                    const campaign = data
+                    setName(campaign.name)
+                    setBrandName(campaign.brand_name)
+                    setTotalBudget(campaign.total_budget <= 0 ? '' : campaign.total_budget)
+                    setCreateBudget(campaign.create_budget <= 0 ? '' : campaign.create_budget)
+                    setCheckTotal(campaign.total_budget > 0 ? false : true)
+                    setCheckCreate(campaign.create_budget > 0 ? false : true)
+                    setStartDate(campaign.when_start)
+                    setEndDate(campaign.when_end)
+
+                    localStorage.setItem('campId', campaign.id)
+                }
+            } catch (error) {
+                if (Array.isArray(error)) {
+                    const err = ErrorHandler(error)
+                    setErrorMsg(err)
+                }
+            }
         }
     }
 
     async function onSubmit() {
-        const user = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/campaign`, {
-            name: name,
-            brandName: brandName,
-            totalBudget: totalBudget === '' ? 0 : parseInt(totalBudget),
-            createBudget: createBudget === '' ? 0 : parseInt(createBudget),
-            startDate: startDate,
-            endDate: endDate
-        })
+        setCheckTotal(totalBudget === '' ? true : false)
+        setCheckCreate(createBudget === '' ? true : false)
 
-        if (user.statusCode === 400) {
-            setErrorMessage(errorMessage)
-        } else {
-            navigate('/spec')
+        try {
+            const campaign = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/campaign`, {
+                name: name,
+                brandName: brandName,
+                totalBudget: totalBudget === '' ? 0 : parseInt(totalBudget),
+                createBudget: createBudget === '' ? 0 : parseInt(createBudget),
+                startDate: startDate,
+                endDate: endDate ? endDate : moment().format('YYYY-MM-DD')
+            })
+
+            navigate('/spec/' + campaign.id)
+        } catch (error) {
+            if (Array.isArray(error)) {
+                const err = ErrorHandler(error)
+                setErrorMsg(err)
+            }
         }
     }
 
@@ -89,32 +108,32 @@ function Campaign() {
                 <form>
                     <div className="grid gap-4 grid-cols-2">
                         <div className="mb-6">
-                            <InputField label="キャンペーン名" value={name} setValue={setName} />
+                            <InputField error={errorMsg?.name} label="キャンペーン名" value={name} setValue={setName} />
                         </div>
                         <div className="mb-6">
-                            <InputField label="商品、またはブランドの名前" value={brandName} setValue={setBrandName} />
+                            <InputField error={errorMsg?.brandName} label="商品、またはブランドの名前" value={brandName} setValue={setBrandName} />
                         </div>
                     </div>
                     <div className="grid gap-4 grid-cols-2">
                         <div className=" mb-6">
-                            <InputField label="広告配信の予算" value={totalBudget} setValue={setTotalBudget} disabled={checkTotal} />
+                            <InputField error={errorMsg?.totalBudget} label="広告配信の予算" value={totalBudget} setValue={setTotalBudget} disabled={checkTotal} />
                             <div className='mt-2'>
                                 <CheckBox label="相談したい" setHandle={onChangeFreeTotal} default={checkTotal} />
                             </div>
                         </div>
                         <div className=" mb-6">
-                            <InputField label="広告作成の予算" value={createBudget} setValue={setCreateBudget} disabled={checkCreate} />
+                            <InputField error={errorMsg?.createBudget} label="広告作成の予算" value={createBudget} setValue={setCreateBudget} disabled={checkCreate} />
                             <div className='mt-2'>
                                 <CheckBox label="相談したい" setHandle={onChangeFreeCreate} default={checkCreate} />
                             </div>
                         </div>
                         <div className=" mb-6">
                             {/* <InputField label="広告配信の開始日" value={startDate} setValue={setStartDate} /> */}
-                            <MyDatePicker label="広告配信の開始日" value={startDate} setValue={setStartDate} />
+                            <MyDatePicker error={errorMsg?.when_start} label="広告配信の開始日" value={startDate} setValue={setStartDate} />
                         </div>
                         <div className=" mb-6">
                             {/* <InputField label="広告配信の終了日" value={endDate} setValue={setEndDate} /> */}
-                            <MyDatePicker label="広告配信の終了日" value={endDate} setValue={setEndDate} />
+                            <MyDatePicker error={errorMsg?.when_end} label="広告配信の終了日" value={endDate} setValue={setEndDate} />
                         </div>
                         <div>
                             <button

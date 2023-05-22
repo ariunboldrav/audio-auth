@@ -10,10 +10,8 @@ const MyDatePicker = (props) => {
     //   var tDate = Date.parse(props.value);
     //   console.log(tDate)
     // } else {
-
     // }
     // console.log(tDate)
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -24,7 +22,7 @@ const MyDatePicker = (props) => {
   const handleChange = (selectedDate = Date) => {
     setSelectedDate(selectedDate);
     // console.log(selectedDate.toString())
-    props.setValue(selectedDate.toISOString())
+    props.setValue(selectedDate.toISOString());
   };
 
   const options = {
@@ -58,7 +56,7 @@ const MyDatePicker = (props) => {
   return (
     <div>
       <label className=" text-gray-900 text-sm" htmlFor="talkAdvBudget">
-        {props.label} - {props.value}
+        {props.label}
       </label>
       <Datepicker
         options={options}
@@ -67,6 +65,7 @@ const MyDatePicker = (props) => {
         value={Date.parse(props.value)}
         setShow={handleClose}
       />
+      <div>{props.error}</div>
     </div>
   );
 };

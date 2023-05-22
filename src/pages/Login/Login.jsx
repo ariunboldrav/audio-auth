@@ -13,13 +13,12 @@ export { Login };
 
 function Login() {
     const dispatch = useDispatch();
-    const authUser = useSelector(x => x.auth.user);
+    const authUser = useSelector(x => x.auth.token);
     const authError = useSelector(x => x.auth.error);
 
     useEffect(() => {
         // redirect to home if already logged in
-        if (authUser) history.navigate('/');
-
+        if (authUser) history.navigate('/company');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

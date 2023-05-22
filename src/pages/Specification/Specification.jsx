@@ -30,6 +30,7 @@ function Specification() {
     const [logoSize, setLogoSize] = useState('');
     const [logoFreq, setLogoFreq] = useState(0);
     const [errorMsg, setErrorMsg] = useState()
+    const [campId, setCampId] = useState(null)
     // const [currentPass, setCurrentPass] = useState('');
 
     useEffect(() => {
@@ -39,24 +40,34 @@ function Specification() {
     }, []);
 
     async function handleCompany() {
-        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/spec`)
-        if (data) {
-            setMedia(data.media ? data.media : '')
-            setSeconds(data.seconds ? data.seconds : data.seconds)
-            setSecondsFreq(data.seconds_freq ? data.seconds_freq : 0)
-            setBannerSize(data.banner_size ? data.banner_size : '')
-            setBannerFreq(data.banner_freq ? data.banner_freq : 0)
-            setLogoSize(data.logo_size ? data.logo_size : '')
-            setLogoFreq(data.logo_freq ? data.logo_freq : 0)
+        const c_id = localStorage.getItem('campId')
+        if (c_id == null) {
+            navigate('/campaigns')
         } else {
-            // navigate('/login')
+            setCampId(c_id)
+            try {
+                const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/spec/` + c_id)
+                if (data) {
+                    setMedia(data.media ? data.media : '')
+                    setSeconds(data.seconds ? data.seconds : data.seconds)
+                    setSecondsFreq(data.seconds_freq ? data.seconds_freq : 0)
+                    setBannerSize(data.banner_size ? data.banner_size : '')
+                    setBannerFreq(data.banner_freq ? data.banner_freq : 0)
+                    setLogoSize(data.logo_size ? data.logo_size : '')
+                    setLogoFreq(data.logo_freq ? data.logo_freq : 0)
+                }
+            } catch (error) {
+                if (c_id == null) {
+                    navigate('/campaigns')
+                }
+            }
         }
+
     }
 
     async function onSubmit() {
-
         try {
-            const spec = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/spec`, {
+            const spec = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/spec/` + campId, {
                 media: media,
                 seconds: seconds,
                 secondsFreq: secondsFreq,
@@ -79,23 +90,17 @@ function Specification() {
 
     return (
         <div className="delay-1000">
-            {errorMsg ?
-                errorMsg.media ? errorMsg.media.map((item) => {
-                    return (<div>{item}</div>)
-                }) : null
-                : null
-            }
             <h2 className="text-black mt-2">依頼主様情報</h2>
             <div className="my-6">
                 <form>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="配信先のメディアフォーマット" placeholder={`その他`} value={media} setValue={setMedia} />
+                            <InputField error={errorMsg?.media} label="配信先のメディアフォーマット" placeholder={`その他`} value={media} setValue={setMedia} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="広告の長さと個数" placeholder={`その他`} value={seconds} setValue={setSeconds} extInput1={
+                            <InputField error={errorMsg?.seconds} label="広告の長さと個数" placeholder={`その他`} value={seconds} setValue={setSeconds} extInput1={
                                 <InputFieldMore
                                     type="text"
                                     value={secondsFreq}
@@ -108,7 +113,7 @@ function Specification() {
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="コンパニオンバナーのサイズと個数" placeholder={`その他`} value={bannerSize} setValue={setBannerSize} extInput1={
+                            <InputField error={errorMsg?.bannerSize} label="コンパニオンバナーのサイズと個数" placeholder={`その他`} value={bannerSize} setValue={setBannerSize} extInput1={
                                 <InputFieldMore
                                     type="text"
                                     value={bannerFreq}
@@ -121,7 +126,7 @@ function Specification() {
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className=" mb-6">
-                            <InputField label="ロゴのサイズと個数" placeholder={`その他`} value={logoSize} setValue={setLogoSize}
+                            <InputField error={errorMsg?.logoSize} label="ロゴのサイズと個数" placeholder={`その他`} value={logoSize} setValue={setLogoSize}
                                 extInput1={
                                     <InputFieldMore
                                         type="text"

@@ -23,7 +23,6 @@ function CampaignDetail() {
     async function handleCampaign() {
         const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign/` + id)
         const campaign = data
-
         if (campaign) {
             setCampaign(campaign)
             setSpec(campaign.spec)

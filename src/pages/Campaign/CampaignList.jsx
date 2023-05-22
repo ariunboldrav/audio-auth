@@ -22,10 +22,11 @@ function CampaignList() {
 
     async function handleCampaign() {
         const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign/all`)
-        if (data) {
+        if (Array.isArray(data)) {
             setCampaignItems(data)
-        } else {
-            // navigate('/login')
+            if (data.length == 0) {
+                navigate('/campaign/edit/0')
+            }
         }
     }
 
@@ -33,7 +34,7 @@ function CampaignList() {
         <div className="">
             <h2 className="text-black mt-2">Campaign List</h2>
             <div className="my-6 relative overflow-x-auto shadow-md sm:rounded-lg p-3">
-                {campaignItems.length > 0 ? <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+                {campaignItems ? <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
                     <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 rounded-sm'>
                         <tr>
                             <th scope="col" className="px-6 py-2">Name</th>
@@ -47,7 +48,7 @@ function CampaignList() {
                             return (
                                 <tr className={`${i % 2 == 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-primary border-b dark:bg-gray-900 dark:border-gray-700`} key={i}>
                                     <td className="px-6 py-2">
-                                        <NavLink className={`hover:text-primary`} to={`/campaign/${item.id}`}>
+                                        <NavLink className={`hover:text-primary`} to={`/campaign/${(item.spec && item.content ? null : 'edit/') + item.id}`}>
                                             {item.name}
                                         </NavLink>
                                     </td>
@@ -65,7 +66,9 @@ function CampaignList() {
                         })}
                     </tbody>
                 </table>
-                    : <div>okko</div>}
+                    : <div>
+                        You havn't any record of campaign!
+                    </div>}
             </div>
         </div >
     );

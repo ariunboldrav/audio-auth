@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { checkBoxItems } from '_helpers/checkSomeData';
 import CheckBox from '_components/inputs/CheckBox';
 import TextAreaField from '_components/inputs/TextAreaField';
-
+import ErrorHandler from '_helpers/errorHandler';
 export { Content };
 
 function Content() {
@@ -25,7 +25,8 @@ function Content() {
     const [styleAdv, setStyleAdv] = useState('');
     const [guidelineTone, setGuidelineTone] = useState('');
     const [targetAudience, setTargetAudience] = useState('');
-    // const [currentPass, setCurrentPass] = useState('');
+    const [campId, setCampId] = useState('');
+    const [errorMsg, setErrorMsg] = useState([])
 
     useEffect(() => {
         dispatch(userActions.getAll());
@@ -34,22 +35,33 @@ function Content() {
     }, []);
 
     async function handleCompany() {
-        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/content`)
-        if (data) {
-            setContent(data.content)
-            setDesired(data.desired)
-            setGoal(data.goal)
-            setAudienceFeel(data.audience_feel)
-            setComments(data.comments)
-            setKeyMessages(data.key_messages)
-            setFeatures(data.features)
-            setHope(data.hope)
-            setStyleAdv(data.style_adv)
-            setGuidelineTone(data.guideline_tone)
-            setTargetAudience(data.target_audience)
+        const c_id = localStorage.getItem('campId')
+        if (c_id == null) {
+            navigate('/campaigns')
         } else {
-            // navigate('/login')
+            setCampId(c_id)
+            try {
+                const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/content/` + c_id)
+                if (data) {
+                    setContent(data.content)
+                    setDesired(data.desired)
+                    setGoal(data.goal)
+                    setAudienceFeel(data.audience_feel)
+                    setComments(data.comments)
+                    setKeyMessages(data.key_messages)
+                    setFeatures(data.features)
+                    setHope(data.hope)
+                    setStyleAdv(data.style_adv)
+                    setGuidelineTone(data.guideline_tone)
+                    setTargetAudience(data.target_audience)
+                }
+            } catch (error) {
+                if (c_id == null) {
+                    navigate('/campaigns')
+                }
+            }
         }
+
     }
 
     function handleE1d(value) {
@@ -79,22 +91,29 @@ function Content() {
     }
 
     async function onSubmit() {
-        const contents = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/content`, {
-            content,
-            goal,
-            desired,
-            audienceFeel,
-            comments,
-            keyMessages,
-            features,
-            hope,
-            styleAdv,
-            audienceFeel,
-            guidelineTone,
-            targetAudience
-        })
-        if (contents) {
-            navigate('/campaign')
+        try {
+            const contents = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/content/` + campId, {
+                content,
+                goal,
+                desired,
+                audienceFeel,
+                comments,
+                keyMessages,
+                features,
+                hope,
+                styleAdv,
+                audienceFeel,
+                guidelineTone,
+                targetAudience
+            })
+            if (contents) {
+                navigate('/campaigns')
+            }
+        } catch (error) {
+            if (Array.isArray(error)) {
+                const err = ErrorHandler(error)
+                setErrorMsg(err)
+            }
         }
     }
 
