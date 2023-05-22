@@ -129,9 +129,9 @@ function Content() {
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <label className="text-gray-900 text-sm" htmlFor="talkAdvBudget">
+                            <div className="text-gray-900 text-sm" htmlFor="talkAdvBudget">
                                 E1. 今回のキャンペーンでの目標を教えてください。
-                            </label>
+                            </div>
                             <div>
                                 {checkBoxItems.e1.items.map((item, i) => {
                                     return <CheckBox key={`e1${i}`} label={`${item}`} domId={`e4${i}`} setHandle={() => { handleE1d(item) }} default={checkE1d(item)} />
@@ -152,9 +152,9 @@ function Content() {
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <label className="text-gray-900 text-sm" htmlFor="talkAdvBudget">
+                            <div className="text-gray-900 text-sm" htmlFor="talkAdvBudget">
                                 E4. 広告のスタイルの希望はありますか？
-                            </label>
+                            </div>
                             {checkBoxItems.e4.items.map((item, i) => {
                                 return <CheckBox key={`e4${i}`} label={`${item}`} domId={`e4${i}`} setHandle={() => { setStyleAdv(item) }} default={styleAdv == item} />
                             })}

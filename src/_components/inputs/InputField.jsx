@@ -9,9 +9,9 @@ const InputField = (props) => {
     <>
       <div>
         {props.label ?
-          <label className={`${props.class} text-sm`} htmlFor={props.domId}>
+          <div className={`${props.class} text-sm`} htmlFor={props.domId}>
             {props.label}
-          </label> : null}
+          </div> : null}
         {props.extInput1}
         {props.extInput2}
         {props.extInput3}

@@ -9,12 +9,10 @@ const TextAreaField = (props) => {
 
   return (
     <div>
-      <label className="text-gray-900 text-sm" htmlFor={props.domId}>
+      <div className="text-black text-sm" htmlFor={props.domId}>
         {props.label}
-      </label>
-      <label className="text-gray-600 text-xs" htmlFor={props.domId}>
-        <div className="mb-2"> {props.info}</div>
-      </label>
+      </div>
+      <div className="mb-2 text-sm text-gray-500"> {props.info}</div>
       {props.extInput1}
       {props.extInput2}
       {props.extInput3}
