@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux';
 import { fetchWrapper } from '_helpers';
 import InputField from '_components/inputs/InputField';
 import { userActions } from '_store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CheckBox from '_components/inputs/CheckBox';
 import MyDatePicker from '_components/inputs/MyDatePicker';
-// import Datepicker from "flowbite-datepicker/Datepicker";
 export { Campaign };
 
 function Campaign() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    let { id } = useParams();
 
     const [name, setName] = useState("");
     const [brandName, setBrandName] = useState("");
@@ -32,23 +32,10 @@ function Campaign() {
     }, []);
 
     async function handleCampaign() {
-        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign`)
-        const user = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/users/profile`)
-
-        if(user.studio) {
-            navigate('/campaigns')
-        }
-
+        const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign/`+id)
+        console.log(data)
         if (data.campaigns.length > 0) {
             const campaign = data.campaigns[0]
-            const spec = campaign.spec
-            const content = campaign.content
-
-            if (campaign && spec && content) {
-                navigate('/campaign/'+campaign.id)
-                // alert(campaign.id)
-            }
-
             setName(campaign.name)
             setBrandName(campaign.brand_name)
             setTotalBudget(campaign.total_budget <= 0 ? '' : campaign.total_budget)
@@ -57,8 +44,6 @@ function Campaign() {
             setCheckCreate(campaign.create_budget > 0 ? false : true)
             setStartDate(campaign.when_start)
             setEndDate(campaign.when_end)
-        } else {
-            // navigate('/login')
         }
     }
 

@@ -62,7 +62,7 @@ function CampaignDetail() {
             </table>
 
             <h1 className='mt-3'>依頼主様情報</h1>
-            <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+            {spec ? <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
                 <tbody>
                     <tr className='bg-white border-b dark:bg-gray-900 dark:border-gray-700'>
                         <td className='p-2'>配信先のメディアフォーマット</td>
@@ -89,10 +89,10 @@ function CampaignDetail() {
                         <td className='p-2'>{spec.logo_freq}</td>
                     </tr>
                 </tbody>
-            </table>
+            </table> : 'No Specs'}
             {/* {JSON.stringify(content)} */}
             <h1 className='mt-3 mb-3'>依頼主様情報</h1>
-            <div className='pl-2'>
+            {content ? <div className='pl-2'>
                 <div>E1. 内容</div>
                 <div className='text-sm mb-2 mt-1'>{content.content}</div>
                 <div>E1. 今回のキャンペーンでの目標を教えてください。</div>
@@ -115,20 +115,20 @@ function CampaignDetail() {
                 <div className='text-sm mb-2 mt-1'>{content.guide_tone}</div>
                 <div>E10. その他コメント </div>
                 <div className='text-sm mb-2 mt-1'> {content.comments}</div>
-            </div>
-            <CsvDownloadButton data={[content]} delimiter="," style={{ //pass other props, like styles
-                boxShadow: "inset 0px 1px 0px 0px #e184f3",
-                background: "linear-gradient(to bottom, #c123de 5%, #a20dbd 100%)",
-                borderRadius: "6px",
-                border: "1px solid #a511c0",
-                display: "inline-block",
-                cursor: "pointer", "color": "#ffffff",
-                fontSize: "15px",
-                fontWeight: "bold",
-                padding: "6px 24px",
-                textDecoration: "none",
-                textShadow: "0px 1px 0px #9b14b3"
-            }} className="bg-primary" filename={`audio_ai_tool_${campaign.when_start}.csv`}>Download CSV</CsvDownloadButton>
+                <CsvDownloadButton data={[content]} delimiter="," style={{ //pass other props, like styles
+                    boxShadow: "inset 0px 1px 0px 0px #e184f3",
+                    background: "linear-gradient(to bottom, #c123de 5%, #a20dbd 100%)",
+                    borderRadius: "6px",
+                    border: "1px solid #a511c0",
+                    display: "inline-block",
+                    cursor: "pointer", "color": "#ffffff",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    padding: "6px 24px",
+                    textDecoration: "none",
+                    textShadow: "0px 1px 0px #9b14b3"
+                }} className="bg-primary" filename={`audio_ai_tool_${campaign.when_start}.csv`}>Download CSV</CsvDownloadButton>
+            </div> : 'No Content'}
         </div>
     );
 }

@@ -14,7 +14,7 @@ const leftItems = [
     },
     {
         name: 'キャンペーン情報',
-        to: '/campaign',
+        to: '/campaigns',
         icon: null,
     },
     {

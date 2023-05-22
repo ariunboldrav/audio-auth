@@ -6,6 +6,7 @@ import InputFieldMore from '_components/inputs/InputFieldMore';
 import CheckBox from '_components/inputs/CheckBox';
 import { userActions } from '_store';
 import { useNavigate } from 'react-router-dom';
+import ErrorHandler from '_helpers/errorHandler';
 
 export { Specification };
 
@@ -28,6 +29,7 @@ function Specification() {
 
     const [logoSize, setLogoSize] = useState('');
     const [logoFreq, setLogoFreq] = useState(0);
+    const [errorMsg, setErrorMsg] = useState()
     // const [currentPass, setCurrentPass] = useState('');
 
     useEffect(() => {
@@ -39,12 +41,12 @@ function Specification() {
     async function handleCompany() {
         const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/spec`)
         if (data) {
-            setMedia(data.media ? data.media : 'default_media')
+            setMedia(data.media ? data.media : '')
             setSeconds(data.seconds ? data.seconds : data.seconds)
             setSecondsFreq(data.seconds_freq ? data.seconds_freq : 0)
-            setBannerSize(data.banner_size ? data.banner_size : '600x600')
+            setBannerSize(data.banner_size ? data.banner_size : '')
             setBannerFreq(data.banner_freq ? data.banner_freq : 0)
-            setLogoSize(data.logo_size ? data.logo_size : '112x112')
+            setLogoSize(data.logo_size ? data.logo_size : '')
             setLogoFreq(data.logo_freq ? data.logo_freq : 0)
         } else {
             // navigate('/login')
@@ -52,30 +54,43 @@ function Specification() {
     }
 
     async function onSubmit() {
-        const spec = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/spec`, {
-            media: media,
-            seconds: seconds,
-            secondsFreq: secondsFreq,
-            bannerSize: bannerSize,
-            bannerFreq: bannerFreq,
-            logoSize: logoSize,
-            logoFreq: logoFreq,
-            // currentPass: currentPass
-        })
-        if (spec) {
-            navigate('/content')
+
+        try {
+            const spec = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/spec`, {
+                media: media,
+                seconds: seconds,
+                secondsFreq: secondsFreq,
+                bannerSize: bannerSize,
+                bannerFreq: bannerFreq,
+                logoSize: logoSize,
+                logoFreq: logoFreq,
+                // currentPass: currentPass
+            })
+            if (spec) {
+                navigate('/content')
+            }
+        } catch (error) {
+            if (Array.isArray(error)) {
+                const err = ErrorHandler(error)
+                setErrorMsg(err)
+            }
         }
     }
 
     return (
         <div className="delay-1000">
+            {errorMsg ?
+                errorMsg.media ? errorMsg.media.map((item) => {
+                    return (<div>{item}</div>)
+                }) : null
+                : null
+            }
             <h2 className="text-black mt-2">依頼主様情報</h2>
             <div className="my-6">
                 <form>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
                             <InputField label="配信先のメディアフォーマット" placeholder={`その他`} value={media} setValue={setMedia} />
-
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">

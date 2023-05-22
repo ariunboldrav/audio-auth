@@ -6,6 +6,7 @@ import { userActions } from '_store';
 import { useNavigate } from 'react-router-dom';
 import { checkBoxItems } from '_helpers/checkSomeData';
 import CheckBox from '_components/inputs/CheckBox';
+import TextAreaField from '_components/inputs/TextAreaField';
 
 export { Content };
 
@@ -81,6 +82,7 @@ function Content() {
         const contents = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/content`, {
             content,
             goal,
+            desired,
             audienceFeel,
             comments,
             keyMessages,
@@ -103,7 +105,7 @@ function Content() {
                 <form>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E. 内容" value={content} setValue={setContent} />
+                            <TextAreaField label="E. 内容" value={content} setValue={setContent} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
@@ -116,17 +118,17 @@ function Content() {
                                     return <CheckBox key={`e1${i}`} label={`${item}`} domId={`e4${i}`} setHandle={() => { handleE1d(item) }} default={checkE1d(item)} />
                                 })}
                             </div>
-                            <InputField value={goal} setValue={setGoal} />
+                            <TextAreaField value={goal} setValue={setGoal} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E2. 希望のCTA (Call-to-Action)" info={`例：詳細はこちら、情報を入手、サイトを見る、チケット購入、クーポンを入手、プロフィールを見る、続きはこちら、お店を探す、ダウンロード、今すぐ共有、今すぐ購入、今すぐ登録、今すぐ聴く`} value={desired} setValue={setDesired} />
+                            <TextAreaField label="E2. 希望のCTA (Call-to-Action)" info={`例：詳細はこちら、情報を入手、サイトを見る、チケット購入、クーポンを入手、プロフィールを見る、続きはこちら、お店を探す、ダウンロード、今すぐ共有、今すぐ購入、今すぐ登録、今すぐ聴く`} value={desired} setValue={setDesired} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E3. 広告のターゲットオーディエンスを教えたください。" info={`訴求商品やサービスのターゲット像を説明ください。 性年代・ライフステージとともに、ペルソナ（ライフスタイル ・好きな音楽・趣味嗜好性）、訴求ブランドとの関係性について、 分かる範囲でお知らせ下さい。`} value={targetAudience} setValue={setTargetAudience} />
+                            <TextAreaField label="E3. 広告のターゲットオーディエンスを教えたください。" info={`訴求商品やサービスのターゲット像を説明ください。 性年代・ライフステージとともに、ペルソナ（ライフスタイル ・好きな音楽・趣味嗜好性）、訴求ブランドとの関係性について、 分かる範囲でお知らせ下さい。`} value={targetAudience} setValue={setTargetAudience} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
@@ -137,37 +139,37 @@ function Content() {
                             {checkBoxItems.e4.items.map((item, i) => {
                                 return <CheckBox key={`e4${i}`} label={`${item}`} domId={`e4${i}`} setHandle={() => { setStyleAdv(item) }} default={styleAdv == item} />
                             })}
-                            <InputField value={styleAdv} setValue={setStyleAdv} index={`e4${checkBoxItems.e4.items.length + 1}`} />
+                            <TextAreaField value={styleAdv} setValue={setStyleAdv} index={`e4${checkBoxItems.e4.items.length + 1}`} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E5. 広告を聞いた後、オーディエンスに感じて欲しい気持ちを教えてください。" value={audienceFeel} setValue={setAudienceFeel} />
+                            <TextAreaField label="E5. 広告を聞いた後、オーディエンスに感じて欲しい気持ちを教えてください。" value={audienceFeel} setValue={setAudienceFeel} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E6. ナレーターのキャラクターや話し方のトーンに希望はありますか？" info={`男性、女性、若い／シニアなどの年齢層、話すスタイル、アクセント、ナレーターのランク(中堅〜ベテラン)等。＜各キャストの内訳＞ナレーションおよび声優の、性別、人数、年齢、テイスト`} value={hope} setValue={setHope} />
+                            <TextAreaField label="E6. ナレーターのキャラクターや話し方のトーンに希望はありますか？" info={`男性、女性、若い／シニアなどの年齢層、話すスタイル、アクセント、ナレーターのランク(中堅〜ベテラン)等。＜各キャストの内訳＞ナレーションおよび声優の、性別、人数、年齢、テイスト`} value={hope} setValue={setHope} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E7. 広告内で伝えたい製品・サービスの特徴をご記入ください。" info={`原稿に含めるべきキーワードがある場合にはそちらも明記ください。`} value={features} setValue={setFeatures} />
+                            <TextAreaField label="E7. 広告内で伝えたい製品・サービスの特徴をご記入ください。" info={`原稿に含めるべきキーワードがある場合にはそちらも明記ください。`} value={features} setValue={setFeatures} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E8. 広告での訴求ポイント・キーメッセージについて" info={`商品・サービスのUSPやベネフィット、キャンペーンのメインメッセージ、サウンドロゴやジングル、耳のこりをさせたいフレーズなど、広告での主要訴求要素についてお知らせ下さい。`} value={keyMessages} setValue={setKeyMessages} />
+                            <TextAreaField label="E8. 広告での訴求ポイント・キーメッセージについて" info={`商品・サービスのUSPやベネフィット、キャンペーンのメインメッセージ、サウンドロゴやジングル、耳のこりをさせたいフレーズなど、広告での主要訴求要素についてお知らせ下さい。`} value={keyMessages} setValue={setKeyMessages} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E9. ブランドガイドラインやトーン＆マナーについて" info={`制作において考慮・遵守する必要がある、ブランドフレーズ、タグライン、法的に必要な文言、またはブランドマーケティングで使用される表現がある場合はお知らせ下さい。`} value={guidelineTone} setValue={setGuidelineTone} />
+                            <TextAreaField label="E9. ブランドガイドラインやトーン＆マナーについて" info={`制作において考慮・遵守する必要がある、ブランドフレーズ、タグライン、法的に必要な文言、またはブランドマーケティングで使用される表現がある場合はお知らせ下さい。`} value={guidelineTone} setValue={setGuidelineTone} />
                         </div>
                     </div>
                     <div className="mb-0 col-span-2">
                         <div className="mb-6">
-                            <InputField label="E10. その他コメント" info={`他に制作に役立つ関連情報・コメントがあれば教えてください。過去キャンペーンなど参考とすべきものがありましたら、併せてお知らせ下さい。`} value={comments} setValue={setComments} />
+                            <TextAreaField label="E10. その他コメント" info={`他に制作に役立つ関連情報・コメントがあれば教えてください。過去キャンペーンなど参考とすべきものがありましたら、併せてお知らせ下さい。`} value={comments} setValue={setComments} />
                         </div>
                     </div>
                     <div>

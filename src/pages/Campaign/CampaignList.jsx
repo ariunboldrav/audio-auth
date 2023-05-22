@@ -23,7 +23,6 @@ function CampaignList() {
     async function handleCampaign() {
         const data = await fetchWrapper.get(`${process.env.REACT_APP_API_URL}/campaign/all`)
         if (data) {
-            setCompany(data)
             setCampaignItems(data)
         } else {
             // navigate('/login')
@@ -34,7 +33,7 @@ function CampaignList() {
         <div className="">
             <h2 className="text-black mt-2">Campaign List</h2>
             <div className="my-6 relative overflow-x-auto shadow-md sm:rounded-lg p-3">
-                <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+                {campaignItems.length > 0 ? <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
                     <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 rounded-sm'>
                         <tr>
                             <th scope="col" className="px-6 py-2">Name</th>
@@ -66,6 +65,7 @@ function CampaignList() {
                         })}
                     </tbody>
                 </table>
+                    : <div>okko</div>}
             </div>
         </div >
     );
