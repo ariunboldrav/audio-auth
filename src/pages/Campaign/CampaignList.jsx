@@ -32,7 +32,7 @@ function CampaignList() {
 
     return (
         <div className="">
-            <h2 className="text-black mt-2">Campaign List</h2>
+            <h2 className="text-black mt-2">キャンペーン情報 List</h2>
             <div className="my-6 relative overflow-x-auto shadow-md sm:rounded-lg p-3">
                 {campaignItems ? <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
                     <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 rounded-sm'>
@@ -46,9 +46,9 @@ function CampaignList() {
                     <tbody>
                         {campaignItems.map((item, i) => {
                             return (
-                                <tr className={`${i % 2 == 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-primary border-b dark:bg-gray-900 dark:border-gray-700`} key={i}>
+                                <tr className={`${i % 2 == 0 ? 'bg-white hover:text-primary' : 'bg-gray-50  hover:text-white'} hover:bg-primary border-b dark:bg-gray-900 dark:border-gray-700`} key={i}>
                                     <td className="px-6 py-2">
-                                        <NavLink className={`hover:text-primary`} to={`/campaign/${(item.spec && item.content && item.fileAnswer ? null : 'edit/') + item.id}`}>
+                                        <NavLink className={`${i % 2 == 0 ? 'hover:text-primary' : 'hover:text-white'}`} to={`/campaign/${(item.spec && item.content && item.fileAnswer ? null : 'edit/') + item.id}`}>
                                             {item.name}
                                         </NavLink>
                                     </td>
@@ -58,8 +58,9 @@ function CampaignList() {
                                     <td className="px-6 py-2">
                                         <Moment format="YYYY/MM/DD HH:mm">{item.created_at}</Moment>
                                     </td>
-                                    <td className="px-6 py-2">
-                                        {item.campaigns ? 'Finished' : 'Draft'}
+                                    <td className={`px-6 py-2`}>
+                                        {item.spec && item.content && item.fileAnswer ?
+                                            <button className='btn bg-success text-white text-sm px-3 py-0'>SUBMITTED</button> : 'DRAFT'}
                                     </td>
                                 </tr>
                             )
@@ -69,6 +70,13 @@ function CampaignList() {
                     : <div>
                         You havn't any record of campaign!
                     </div>}
+
+                <div className='mb-0 col-span-2  grid grid-flow-row-dense grid-cols-2'>
+                    <div></div>
+                    <div className='text-right p-2'>
+                        <button className='btn bk-primary text-white text-sm' type='button' onClick={() => navigate('/campaign/edit/0')}>Create new campaign</button>
+                    </div>
+                </div>
             </div>
         </div >
     );

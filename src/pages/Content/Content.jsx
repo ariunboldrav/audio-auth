@@ -119,7 +119,7 @@ function Content() {
 
     return (
         <div className="">
-            <h2 className="text-black mt-2">依頼主様情報</h2>
+            <h2 className="text-black mt-2">広告の内容</h2>
             <div className="my-6">
                 <form>
                     <div className="mb-0 col-span-2">

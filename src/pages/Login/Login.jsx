@@ -58,7 +58,7 @@ function Login() {
                                 <NavLink to="/">Register</NavLink>
                             </div>
                             <div className='text-right'>
-                                <button disabled={isSubmitting} className="rounded-md px-5 btn btn-primary bg-primary font-light">
+                                <button disabled={isSubmitting} className="rounded-md px-5 btn btn bk-primary text-white">
                                     {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                     Login
                                 </button>

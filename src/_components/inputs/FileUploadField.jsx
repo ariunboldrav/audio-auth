@@ -1,20 +1,7 @@
-import { AnyARecord } from "dns";
 import React from "react";
 
-interface IFProps {
-  label?: string;
-  info?: string;
-  rows?: number;
-  value?: any;
-  width?: any;
-  setValue?: any;
-  extInput1?: any;
-  extInput2?: any;
-  extInput3?: any;
-  extInput4?: any;
-}
 
-const FileUploadField: React.FC<IFProps> = (props: IFProps) => {
+const FileUploadField = (props) => {
   return (
     <>
       <div>
@@ -49,8 +36,8 @@ const FileUploadField: React.FC<IFProps> = (props: IFProps) => {
             <input id="dropzone-file" type="file" className="hidden" />
           </label>
         </div>
-
-        <div className="rounded-lg border border-gray p-0 mt-5">
+        <div className="text-sm">AWS PrivateKey Error</div>
+        {/* <div className="rounded-lg border border-gray p-0 mt-5">
           <div className="text-sm text-gray-900 py-2 pl-5">Screen Shot 2023-04-20 at {props.value}.png</div>
           <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
             <div className={`bg-primary h-2.5 rounded-full w-${props.width}`}></div>
@@ -59,9 +46,9 @@ const FileUploadField: React.FC<IFProps> = (props: IFProps) => {
         <div className="rounded-lg border border-gray p-0 mt-5">
           <div className="text-sm text-gray-900 py-2 pl-5">Screen Shot 2023-04-20 at {props.value}.png</div>
           <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-            <div className={`bg-primary h-2.5 rounded-full w-${props.width/2}`}></div>
+            <div className={`bg-primary h-2.5 rounded-full w-${props.width / 2}`}></div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

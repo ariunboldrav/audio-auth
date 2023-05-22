@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ErrorHandler from '_helpers/errorHandler';
 import TextAreaField from '_components/inputs/TextAreaField';
 import { checkBoxItems } from '_helpers/checkSomeData';
+import FileUploadField from '_components/inputs/FileUploadField';
 
 export { FileUpload };
 
@@ -87,8 +88,8 @@ function FileUpload() {
                                 })}
                                 <TextAreaField error={errorMsg?.answerOne} info="御社で作成される場合はこちらの例をご確認ください。" placeholder={`コメント、リクエスト`} value={answerOne} setValue={setAnswerOne} />
                             </div>
-                            <div>
-                                File1
+                            <div className='pl-4'>
+                                <FileUploadField />
                             </div>
                         </div>
                         {/* File2 */}
@@ -103,8 +104,8 @@ function FileUpload() {
                                 })}
                                 <TextAreaField error={errorMsg?.answerTwo} info="" placeholder={`その他`} value={answerTwo} setValue={setAnswerTwo} />
                             </div>
-                            <div>
-                                File2
+                            <div className='pl-4'>
+                                <FileUploadField />
                             </div>
                         </div>
                         {/* File2 */}
@@ -118,8 +119,8 @@ function FileUpload() {
                                 })}
                                 <TextAreaField error={errorMsg?.answerThree} placeholder={`その他`} value={answerThree} setValue={setAnswerThree} />
                             </div>
-                            <div>
-                                File3
+                            <div className='pl-4'>
+                                <FileUploadField />
                             </div>
                         </div>
                         {/* File4 */}
@@ -133,8 +134,10 @@ function FileUpload() {
                                     return <CheckBox key={`f4${i}`} label={`${item}`} domId={`e4${i}`} setHandle={() => { setAnswerFour(item) }} default={answerFour == item} />
                                 })}
                                 <TextAreaField error={errorMsg?.answerFour} placeholder={`その他`} value={answerFour} setValue={setAnswerFour} />
-                            </div>s
-                            <div>File 4</div>
+                            </div>
+                            <div className='pl-4'>
+                                <FileUploadField />
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -151,7 +154,7 @@ function FileUpload() {
                         <button
                             onClick={() => onSubmit()}
                             type='button'
-                            className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                            className="flex float-right text-white bk-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                         >
                             Next
                         </button>

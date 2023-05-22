@@ -48,7 +48,6 @@ function Campaign() {
                     setCheckCreate(campaign.create_budget > 0 ? false : true)
                     setStartDate(campaign.when_start)
                     setEndDate(campaign.when_end)
-
                     localStorage.setItem('campId', campaign.id)
                 }
             } catch (error) {
@@ -63,7 +62,6 @@ function Campaign() {
     async function onSubmit() {
         setCheckTotal(totalBudget === '' ? true : false)
         setCheckCreate(createBudget === '' ? true : false)
-
         try {
             const campaign = await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/campaign`, {
                 name: name,
@@ -71,9 +69,10 @@ function Campaign() {
                 totalBudget: totalBudget === '' ? 0 : parseInt(totalBudget),
                 createBudget: createBudget === '' ? 0 : parseInt(createBudget),
                 startDate: startDate,
-                endDate: endDate ? endDate : moment().format('YYYY-MM-DD')
+                endDate: endDate ? endDate : moment().format('YYYY-MM-DD'),
+                campId: id != 0 ? id : null
             })
-
+            localStorage.setItem('campId', campaign.id)
             navigate('/spec/' + campaign.id)
         } catch (error) {
             if (Array.isArray(error)) {
