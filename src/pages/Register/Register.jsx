@@ -21,8 +21,10 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confPass, setConfPass] = useState('');
     const [errorMsg, setErrorMsg] = useState()
+
     useEffect(() => {
-        // dispatch(userActions.getAll());
+        // redirect to home if already logged in
+        if (authUser) history.navigate('/company');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -85,7 +87,7 @@ function Register() {
                             <button
                                 onClick={() => onSubmit()}
                                 type='button'
-                                className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                                className="flex float-right text-white bk-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                             >
                                 Register
                             </button>

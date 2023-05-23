@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchWrapper } from '_helpers';
 import { userActions } from '_store';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -9,14 +9,18 @@ export { CampaignList };
 function CampaignList() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-
+    const { users } = useSelector(x => x.users);
     const [campaignItems, setCampaignItems] = useState([]);
     const [company, setCompany] = useState([]);
 
 
     useEffect(() => {
         dispatch(userActions.getAll());
-        handleCampaign()
+        if(users.full_name) {
+            handleCampaign()
+        } else {
+            navigate('/')
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -28,6 +32,10 @@ function CampaignList() {
                 navigate('/campaign/edit/0')
             }
         }
+    }
+
+    if(!users.full_name) {
+        return null
     }
 
     return (

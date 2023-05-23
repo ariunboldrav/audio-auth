@@ -200,7 +200,7 @@ function CampaignDetail() {
                 padding: "6px 24px",
                 textDecoration: "none",
                 textShadow: "0px 1px 0px #9b14b3"
-            }} className="bg-primary" filename={`audio_ai_tool_${campaign.when_start}.csv`}>Download CSV</CsvDownloadButton>
+            }} className="bk-primary" filename={`audio_ai_tool_${campaign.when_start}.csv`}>Download CSV</CsvDownloadButton>
         </div>
     );
 }

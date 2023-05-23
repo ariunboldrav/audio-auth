@@ -72,7 +72,7 @@ function createExtraReducers() {
                 localStorage.setItem('token', JSON.stringify(user));
                 state.user = user;
                 // get return url from location state or default to home page
-                const { from } = history.location.state || { from: { pathname: '/campaign' } };
+                const { from } = history.location.state || { from: { pathname: '/campaigns' } };
                 history.navigate(from);
             },
             [rejected]: (state, action) => {

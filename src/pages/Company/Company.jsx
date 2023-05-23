@@ -35,9 +35,6 @@ function Company() {
                 setEmail(data.email)
                 setPhone(data.phone)
             }
-            if(data.studio == true) {
-                navigate('/campaigns')
-            }
         } else {
             navigate('/login')
         }
@@ -52,7 +49,7 @@ function Company() {
             // currentPass: currentPass
         })
         if (user) {
-            navigate('/campaign')
+            navigate('/campaigns')
         }
     }
 
@@ -85,7 +82,7 @@ function Company() {
                             <button
                                 onClick={() => onSubmit()}
                                 type='button'
-                                className="flex float-right text-white bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                                className="flex float-right text-white bk-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                             >
                                 Next
                             </button>
